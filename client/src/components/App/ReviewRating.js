@@ -1,20 +1,23 @@
-import * as React from 'react';
-//import all necessary libraries here, e.g., Material-UI Typography, as follows
-import Typography from '@mui/material/Typography';
+import React from 'react';
+import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio,Typography } from '@mui/material';
 
-const ReviewRating = () => {
-
-  //states declarations
-  //constants and functions declarations
+const ReviewRating = ({ onChange, error }) => {
 
   return (
-    <>
-    
-    {/* JSX block */}
-
-
-    </>
-  );
-}
+    <div> 
+    <FormControl component="fieldset">
+      <FormLabel align="center" component="legend" sx={{ width:'75%'}} margin="normal">Select A Movie Rating</FormLabel>
+      <RadioGroup onChange={onChange} row>
+        <FormControlLabel value="1" control={<Radio />} label="1" />
+        <FormControlLabel value="2" control={<Radio />} label="2" />
+        <FormControlLabel value="3" control={<Radio />} label="3" />
+        <FormControlLabel value="4" control={<Radio />} label="4" />
+        <FormControlLabel value="5" control={<Radio />} label="5" />
+      </RadioGroup>
+    </FormControl>
+    <Typography color="error">{error}</Typography>
+  </div>  
+    );
+};
 
 export default ReviewRating;
