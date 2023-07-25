@@ -13,7 +13,8 @@ const GreenTypography = styled(Typography)({
 });
 
 
-const Review = () => {
+const Reviews = () => {
+  
   const [selectedMovie, setSelectedMovie] = useState({});
   const [enteredTitle, setEnteredTitle] = useState('');
   const [enteredReview, setEnteredReview] = useState('');
@@ -222,4 +223,4 @@ const Review = () => {
   );
 }  
 
-export default Review;
+export default Reviews;
