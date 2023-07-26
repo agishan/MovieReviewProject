@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Grid, TextField, Button, Typography } from '@mui/material';
+import { Container, Grid, TextField, Button, Typography, Paper, Box } from '@mui/material';
 
 const Search = () => {
     const [movieName, setMovieName] = useState('');
@@ -13,7 +13,7 @@ const Search = () => {
             directorName,
             actorName,
         };
-    
+
         fetch('/api/searchMovies', {
             method: 'POST',
             headers: {
@@ -23,15 +23,16 @@ const Search = () => {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
-                setSearchResults(data)})
+                console.log(data);
+                setSearchResults(data);
+            })
             .catch((error) => console.error(error));
     };
 
     return (
-        <Container maxWidth="md" style={{ width: '75%', margin: '0 auto' }}>
-            <Grid container direction="column" justify="center" spacing={3} style={{ minHeight: '100vh' }}>
-                <Grid item xs={12} style={{textAlign: 'center'}}>
+        <Container maxWidth="md">
+            <Grid container direction="column" spacing={3}>
+                <Grid item xs={12}>
                     <Typography variant="h2" align="center" gutterBottom>
                         Search
                     </Typography>
@@ -63,28 +64,40 @@ const Search = () => {
                 <Grid item xs={12}>
                     <Button 
                         variant="contained" 
-                        style={{ backgroundColor: 'black', color: 'gold' }}
+                        color="primary"
                         fullWidth 
                         onClick={handleSearch}
+                        style={{ backgroundColor: 'black', color: 'gold' }}  
                     >
                         Search
                     </Button>
                 </Grid>
-                    {searchResults.length > 0 && searchResults.map((result, index) => (
-                        <Grid item xs={12} key={index}>
-                            <Typography variant="h5">
-                                {result.movie_name}
-                            </Typography>
-                            <p>Directed by: {result.directors}</p>
-                            {result.review_contents && <p>Reviews: {result.review_contents}</p>}
-                            {result.average_review_score && <p>Score: {result.average_review_score}</p>}
-                        </Grid>
-                    ))}
+                {searchResults.length > 0 && searchResults.map((result, index) => (
+                    <Grid item xs={12} key={index}>
+                        <Paper elevation={3}>
+                            <Box p={3}>
+                                <Typography variant="h5" gutterBottom>
+                                    {result.movie_name}
+                                </Typography>
+                                <Typography variant="subtitle1" gutterBottom>
+                                    Directed by: {result.directors}
+                                </Typography>
+                                {result.review_contents && (
+                                    <div>
+                                        <Typography variant="subtitle1">Reviews:</Typography>
+                                                {result.review_contents.split('||').map((review) => (
+                                                    <li>{review}</li>
+                                                ))}
+                                    </div>
+                                )}
+                                {result.average_review_score && <Typography variant="subtitle1" gutterBottom>Score: {result.average_review_score}</Typography>}
+                            </Box>
+                        </Paper>
+                    </Grid>
+                ))}
             </Grid>
         </Container>
     );
-    
-    };
-    
+}
 
 export default Search;

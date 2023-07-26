@@ -69,7 +69,7 @@ app.post('/api/searchMovies', (req, res) => {
 		SELECT 
 			m.name AS movie_name,
 			GROUP_CONCAT(DISTINCT CONCAT(d.first_name, ' ', d.last_name) SEPARATOR ', ') AS directors,
-			GROUP_CONCAT(DISTINCT re.reviewContent SEPARATOR ', ') AS review_contents,
+			GROUP_CONCAT(DISTINCT re.reviewContent SEPARATOR '||') AS review_contents,
 			AVG(re.reviewScore) As average_review_score
 		FROM 
 			movies m
