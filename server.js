@@ -32,6 +32,78 @@ app.post('/api/getMovies', (req, res) => {
     connection.end();
 });
 
+app.post('/api/searchMovies', (req, res) => {
+    let connection = mysql.createConnection(config);
+
+	const { movieName, directorName, actorName } = req.body;
+
+    // Prepare search criteria
+    let searchCriteria = [];
+    let params = [];
+    if (movieName) {
+        searchCriteria.push("m.name LIKE ?");
+        params.push(`%${movieName}%`);
+    }
+    if (directorName) {
+        let [directorFirstName, directorLastName] = directorName.split(' ');
+        if (directorLastName) {
+            searchCriteria.push("(d.first_name LIKE ? AND d.last_name LIKE ?)");
+            params.push(`%${directorFirstName}%`, `%${directorLastName}%`);
+        } else {
+            searchCriteria.push("(d.first_name LIKE ? OR d.last_name LIKE ?)");
+            params.push(`%${directorFirstName}%`, `%${directorFirstName}%`);
+        }
+    }
+    if (actorName) {
+        let [actorFirstName, actorLastName] = actorName.split(' ');
+        if (actorLastName) {
+            searchCriteria.push("(a.first_name LIKE ? AND a.last_name LIKE ?)");
+            params.push(`%${actorFirstName}%`, `%${actorLastName}%`);
+        } else {
+            searchCriteria.push("(a.first_name LIKE ? OR a.last_name LIKE ?)");
+            params.push(`%${actorFirstName}%`, `%${actorFirstName}%`);
+        }
+    }
+
+    let query = `
+		SELECT 
+			m.name AS movie_name,
+			GROUP_CONCAT(DISTINCT CONCAT(d.first_name, ' ', d.last_name) SEPARATOR ', ') AS directors,
+			GROUP_CONCAT(DISTINCT re.reviewContent SEPARATOR ', ') AS review_contents,
+			AVG(re.reviewScore) As average_review_score
+		FROM 
+			movies m
+		JOIN 
+			movies_directors md ON md.movie_id = m.id
+		JOIN 
+			directors d ON d.id = md.director_id
+		LEFT JOIN 
+			review re ON re.movieID = m.id
+		JOIN 
+			roles ro ON ro.movie_id = m.id
+		JOIN 
+			actors a ON a.id = ro.actor_id
+		${searchCriteria.length > 0 ? `WHERE ${searchCriteria.join(' AND ')}` : ''}
+		GROUP BY 
+			m.id
+		`
+
+    connection.query(query, params, (error, results) => {
+        if (error) {
+            console.error(error.message);
+            res.status(500).json({ error: error.toString() }); // send error in JSON format
+            return;
+        }
+        res.json(results);
+    });
+
+    connection.end();
+});
+
+
+
+
+
 app.post('/api/addReview', (req, res) => {
 	var {reviewTitle, reviewContent, movieID, reviewScore, userId} = req.body;
 	var query = 'INSERT INTO review (reviewTitle, reviewContent, reviewScore, movieID, userID) VALUES (?, ?, ?, ?, ?)';

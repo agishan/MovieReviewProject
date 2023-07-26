@@ -188,7 +188,7 @@ const Reviews = () => {
       <Grid item align="center">
         <Button 
         variant="contained" 
-        color="primary"  
+        style={{ backgroundColor: 'black', color: 'gold' }}  
         sx={{ width: '75%' }} 
         margin="normal" 
         onClick={handleSubmit}
