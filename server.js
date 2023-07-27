@@ -100,6 +100,110 @@ app.post('/api/searchMovies', (req, res) => {
     connection.end();
 });
 
+app.get('/api/topDirectors', (req, res) => {
+    let connection = mysql.createConnection(config);
+
+    let query = `
+        SELECT 
+            CONCAT(d.first_name, ' ', d.last_name) AS director_name,
+            AVG(re.reviewScore) AS average_review_score
+        FROM 
+            directors d
+        JOIN 
+            movies_directors md ON d.id = md.director_id
+        JOIN 
+            movies m ON md.movie_id = m.id
+        LEFT JOIN 
+            review re ON re.movieID = m.id
+        GROUP BY 
+            d.id
+        ORDER BY
+            average_review_score DESC
+        LIMIT 10
+        `;
+
+    connection.query(query, (error, results) => {
+        if (error) {
+            console.error(error.message);
+            res.status(500).json({ error: error.toString() }); // send error in JSON format
+            return;
+        }
+        res.json(results);
+    });
+
+    connection.end();
+});
+
+app.get('/api/topActors', (req, res) => {
+    let connection = mysql.createConnection(config);
+
+    let query = `
+        SELECT 
+            CONCAT(a.first_name, ' ', a.last_name) AS actor_name,
+            AVG(re.reviewScore) AS average_review_score
+        FROM 
+            actors a
+        JOIN 
+            roles ro ON a.id = ro.actor_id
+        JOIN 
+            movies m ON ro.movie_id = m.id
+        LEFT JOIN 
+            review re ON re.movieID = m.id
+        GROUP BY 
+            a.id
+        ORDER BY
+            average_review_score DESC
+        LIMIT 10
+        `;
+
+    connection.query(query, (error, results) => {
+        if (error) {
+            console.error(error.message);
+            res.status(500).json({ error: error.toString() }); // send error in JSON format
+            return;
+        }
+        res.json(results);
+    });
+
+    connection.end();
+});
+
+app.get('/api/topMovies', (req, res) => {
+    let connection = mysql.createConnection(config);
+
+    let query = `
+        SELECT 
+            m.name AS movie_name,
+            GROUP_CONCAT(DISTINCT CONCAT(d.first_name, ' ', d.last_name) SEPARATOR ', ') AS directors,
+            AVG(re.reviewScore) As average_review_score
+        FROM 
+            movies m
+        JOIN 
+            movies_directors md ON md.movie_id = m.id
+        JOIN 
+            directors d ON d.id = md.director_id
+        LEFT JOIN 
+            review re ON re.movieID = m.id
+        GROUP BY 
+            m.id
+        ORDER BY
+            average_review_score DESC
+        LIMIT 10
+        `;
+
+    connection.query(query, (error, results) => {
+        if (error) {
+            console.error(error.message);
+            res.status(500).json({ error: error.toString() }); // send error in JSON format
+            return;
+        }
+        res.json(results);
+    });
+
+    connection.end();
+});
+
+
 
 
 

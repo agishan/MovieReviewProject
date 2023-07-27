@@ -1,15 +1,17 @@
 import * as React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
+import MyPages from './MyPages'
 
 
 const MyPage = () => {
   return (
+    <>
     <div>
         <AppBar position="static" color="inherit" style={{ backgroundColor: 'black' }}>
             <Toolbar>
                 <Typography variant="h6" style={{ flexGrow: 1, color: 'gold' }}>
-                    My App
+                      🎬 My Movie Website 🎥
                 </Typography>
                 <Button color="inherit" component={Link} to="/" style={{ color: 'gold' }}>Home</Button>
                 <Button color="inherit" style={{ color: 'white' }}>MyPage</Button>
@@ -17,9 +19,13 @@ const MyPage = () => {
                 <Button color="inherit" component={Link} to="/Search" style={{ color: 'gold' }}>Search</Button>
             </Toolbar>
         </AppBar>
-      <h1>MyPage</h1>
     </div>
+    <div>
+      <MyPages/>
+    </div>
+    </>
   );
+
 };
 
 export default MyPage;

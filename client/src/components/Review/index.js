@@ -10,7 +10,7 @@ const Review = () => {
         <AppBar position="static" color="inherit" style={{ backgroundColor: 'black' }}>
             <Toolbar>
                 <Typography variant="h6" style={{ flexGrow: 1, color: 'gold' }}>
-                    My App
+                        🎬 My Movie Website 🎥
                 </Typography>
                 <Button color="inherit" component={Link} to="/" style={{ color: 'gold' }}>Home</Button>
                 <Button color="inherit" component={Link} to="/MyPage" style={{ color: 'gold' }}>MyPage</Button>
