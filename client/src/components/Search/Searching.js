@@ -30,51 +30,68 @@ const Search = () => {
     };
 
     return (
-        <Container maxWidth="md">
+        <Container maxWidth="md" style={{ backgroundColor: 'black', color: 'white', minHeight: '100vh' }}>
             <Grid container direction="column" spacing={3}>
                 <Grid item xs={12}>
-                    <Typography variant="h2" align="center" gutterBottom>
+                    <Typography variant="h2" align="center" gutterBottom style={{ color: 'gold' }}>
                         Search
                     </Typography>
-                    <Typography variant="h5" align="center" gutterBottom>
+                    <Typography variant="h5" align="center" gutterBottom style={{ color: 'gold' }}>
                         Search for reviews!
                     </Typography>
                 </Grid>
                 <Grid item xs={12}>
                     <TextField 
-                        label="Movie Name" 
+                        label="Movie Name"
                         fullWidth 
+                        InputLabelProps={{
+                            style: { color: 'gold' },
+                        }}
+                        InputProps={{
+                            style: { color: 'white', borderColor: 'white', borderWidth: 1, borderStyle: 'solid' },
+                        }} 
                         onChange={(e) => setMovieName(e.target.value)} 
                     />
                 </Grid>
                 <Grid item xs={12}>
                     <TextField 
-                        label="Director Name" 
+                        label="Director Name"
                         fullWidth 
+                        InputLabelProps={{
+                            style: { color: 'gold' },
+                        }}
+                        InputProps={{
+                            style: { color: 'white', borderColor: 'white', borderWidth: 1, borderStyle: 'solid' },
+                        }} 
                         onChange={(e) => setDirectorName(e.target.value)} 
                     />
                 </Grid>
                 <Grid item xs={12}>
                     <TextField 
-                        label="Actor Name" 
+                        label="Actor Name"
                         fullWidth 
+                        InputLabelProps={{
+                            style: { color: 'gold' },
+                        }}
+                        InputProps={{
+                            style: { color: 'white', borderColor: 'white', borderWidth: 1, borderStyle: 'solid' },
+                        }} 
                         onChange={(e) => setActorName(e.target.value)} 
                     />
                 </Grid>
                 <Grid item xs={12}>
                     <Button 
                         variant="contained" 
-                        color="primary"
                         fullWidth 
                         onClick={handleSearch}
-                        style={{ backgroundColor: 'black', color: 'gold' }}  
+                        style={{ backgroundColor: 'gold', color: 'black' }}  
                     >
                         Search
                     </Button>
                 </Grid>
                 {searchResults.length > 0 && searchResults.map((result, index) => (
                     <Grid item xs={12} key={index}>
-                        <Paper elevation={3}>
+                        <Paper elevation={3} style={{ backgroundColor: 'gold', color: 'black' }}>
                             <Box p={3}>
                                 <Typography variant="h5" gutterBottom>
                                     {result.movie_name}

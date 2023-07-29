@@ -78,7 +78,7 @@ app.post('/api/searchMovies', (req, res) => {
 		JOIN 
 			directors d ON d.id = md.director_id
 		LEFT JOIN 
-			review re ON re.movieID = m.id
+			Review re ON re.movieID = m.id
 		JOIN 
 			roles ro ON ro.movie_id = m.id
 		JOIN 
@@ -114,7 +114,7 @@ app.get('/api/topDirectors', (req, res) => {
         JOIN 
             movies m ON md.movie_id = m.id
         LEFT JOIN 
-            review re ON re.movieID = m.id
+            Review re ON re.movieID = m.id
         GROUP BY 
             d.id
         ORDER BY
@@ -148,7 +148,7 @@ app.get('/api/topActors', (req, res) => {
         JOIN 
             movies m ON ro.movie_id = m.id
         LEFT JOIN 
-            review re ON re.movieID = m.id
+            Review re ON re.movieID = m.id
         GROUP BY 
             a.id
         ORDER BY
@@ -183,7 +183,7 @@ app.get('/api/topMovies', (req, res) => {
         JOIN 
             directors d ON d.id = md.director_id
         LEFT JOIN 
-            review re ON re.movieID = m.id
+            Review re ON re.movieID = m.id
         GROUP BY 
             m.id
         ORDER BY
@@ -210,7 +210,7 @@ app.get('/api/topMovies', (req, res) => {
 
 app.post('/api/addReview', (req, res) => {
 	var {reviewTitle, reviewContent, movieID, reviewScore, userId} = req.body;
-	var query = 'INSERT INTO review (reviewTitle, reviewContent, reviewScore, movieID, userID) VALUES (?, ?, ?, ?, ?)';
+	var query = 'INSERT INTO Review (reviewTitle, reviewContent, reviewScore, movieID, userID) VALUES (?, ?, ?, ?, ?)';
 	var vars = [reviewTitle, reviewContent, reviewScore, movieID, userId];
 	
 	let connection = mysql.createConnection(config);
@@ -224,6 +224,69 @@ app.post('/api/addReview', (req, res) => {
 	});
 	connection.end();
   });
+
+  app.post('/api/deleteFromWatchList', (req, res) => {
+    let connection = mysql.createConnection(config);
+
+    let query = `
+        DELETE FROM MovieWatchList 
+        WHERE userID = ? AND movieID = ?
+    `;
+
+    connection.query(query, [req.body.userID, req.body.movieID], (error, results) => {
+        if (error) {
+            console.error(error.message);
+            res.status(500).json({ error: error.toString() });
+            return;
+        }
+        res.json({ message: "Movie removed from watch list successfully" });
+    });
+
+    connection.end();
+});
+
+app.post('/api/viewWatchList', (req, res) => {
+    let connection = mysql.createConnection(config);
+
+    let query = `
+    SELECT m.id AS id, m.name AS name
+    FROM MovieWatchList mw
+    JOIN movies m ON mw.movieID = m.id
+    WHERE mw.userID = ?
+    `;
+
+    connection.query(query, [req.body.userID], (error, results) => {
+        if (error) {
+            console.error(error.message);
+            res.status(500).json({ error: error.toString() });
+            return;
+        }
+        res.json(results);
+    });
+
+    connection.end();
+});
+
+app.post('/api/addToWatchList', (req, res) => {
+    let connection = mysql.createConnection(config);
+
+    let query = `
+        INSERT INTO MovieWatchList (userID, movieID)
+        VALUES (?, ?)
+    `;
+
+    connection.query(query, [req.body.userID, req.body.movieID], (error, results) => {
+        if (error) {
+            console.error(error.message);
+            res.status(500).json({ error: error.toString() });
+            return;
+        }
+        res.json({ message: "Movie added to watch list successfully" });
+    });
+
+    connection.end();
+});
+
   
 app.post('/api/loadUserSettings', (req, res) => {
 

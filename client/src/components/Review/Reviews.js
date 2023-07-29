@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import { Grid, Button } from '@mui/material';
+import { Grid, Button, Box } from '@mui/material';
 import ReviewTitle from './ReviewTitle';
 import ReviewBody from './ReviewBody';
 import ReviewRating from './ReviewRating';
@@ -7,6 +7,13 @@ import MovieSelection from './MovieSelection';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/system';
 
+const WhiteTypography = styled(Typography)({
+  color: 'white',
+});
+
+const GoldTypography = styled(Typography)({
+  color: 'gold',
+});
 
 const GreenTypography = styled(Typography)({
   color: 'green',

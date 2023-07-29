@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography, Paper, Box } from '@mui/material';
+import { Grid, Typography, Paper, Box } from '@mui/material';
 
 const MyPages = () => {
     const [movies, setMovies] = useState([]);
@@ -21,37 +21,37 @@ const MyPages = () => {
     }, []);
 
     return (
-        <Container>
-            <Typography variant="h4" color="gold">Top 10 Movies</Typography>
+        <Box style={{ backgroundColor: 'black', minHeight: '100vh', color: 'white' }}>
+            <Typography variant="h4" align="center" style={{ color: 'gold' }}>Top 10 Movies</Typography>
             {movies.map((movie, index) => (
-                <Paper key={index} elevation={3} style={{ backgroundColor: 'black', color: 'gold', marginBottom: '20px' }}>
+                <Paper key={index} elevation={3} style={{ backgroundColor: 'gold', marginBottom: '20px' }}>
                     <Box p={2}>
-                        <Typography variant="h5">{movie.movie_name}</Typography>
-                        <Typography variant="body1">Average Score: {movie.average_review_score}</Typography>
+                        <Typography variant="h5" style={{ color: 'black' }}>{movie.movie_name}</Typography>
+                        <Typography variant="body1" style={{ color: 'black' }}>Average Score: {movie.average_review_score}</Typography>
                     </Box>
                 </Paper>
             ))}
             
-            <Typography variant="h4" color="gold">Top 10 Actors</Typography>
+            <Typography variant="h4" align="center" style={{ color: 'gold' }}>Top 10 Actors</Typography>
             {actors.map((actor, index) => (
-                <Paper key={index} elevation={3} style={{ backgroundColor: 'black', color: 'gold', marginBottom: '20px' }}>
+                <Paper key={index} elevation={3} style={{ backgroundColor: 'gold', marginBottom: '20px' }}>
                     <Box p={2}>
-                        <Typography variant="h5">{actor.actor_name}</Typography>
-                        <Typography variant="body1">Average Score: {actor.average_review_score}</Typography>
+                        <Typography variant="h5" style={{ color: 'black' }}>{actor.actor_name}</Typography>
+                        <Typography variant="body1" style={{ color: 'black' }}>Average Score: {actor.average_review_score}</Typography>
                     </Box>
                 </Paper>
             ))}
 
-            <Typography variant="h4" color="gold">Top 10 Directors</Typography>
+            <Typography variant="h4" align="center" style={{ color: 'gold' }}>Top 10 Directors</Typography>
             {directors.map((director, index) => (
-                <Paper key={index} elevation={3} style={{ backgroundColor: 'black', color: 'gold', marginBottom: '20px' }}>
+                <Paper key={index} elevation={3} style={{ backgroundColor: 'gold', marginBottom: '20px' }}>
                     <Box p={2}>
-                        <Typography variant="h5">{director.director_name}</Typography>
-                        <Typography variant="body1">Average Score: {director.average_review_score}</Typography>
+                        <Typography variant="h5" style={{ color: 'black' }}>{director.director_name}</Typography>
+                        <Typography variant="body1" style={{ color: 'black' }}>Average Score: {director.average_review_score}</Typography>
                     </Box>
                 </Paper>
             ))}
-        </Container>
+        </Box>
     );
 };
 
