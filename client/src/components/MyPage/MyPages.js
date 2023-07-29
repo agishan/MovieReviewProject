@@ -21,6 +21,8 @@ const MyPages = () => {
     }, []);
 
     return (
+    <div>
+        <Typography variant="h3" align="center" style={{ color: 'gold' }}>Scoreboard</Typography>
         <Box style={{ backgroundColor: 'black', minHeight: '100vh', color: 'white' }}>
             <Typography variant="h4" align="center" style={{ color: 'gold' }}>Top 10 Movies</Typography>
             {movies.map((movie, index) => (
@@ -52,7 +54,9 @@ const MyPages = () => {
                 </Paper>
             ))}
         </Box>
+    </div>
     );
+
 };
 
 export default MyPages;

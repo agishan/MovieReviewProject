@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { List, Grid, ListItem, ListItemText, Button, TextField, Paper, Typography, Select, MenuItem, InputLabel } from '@mui/material';
+import { List, Grid, ListItem, ListItemText, Button, TextField, Paper, Typography, Select, MenuItem, InputLabel, Card, Container, CardContent } from '@mui/material';
 
 const ToWatchList = () => {
     const [toWatchList, setToWatchList] = useState([]);
@@ -82,62 +82,78 @@ const ToWatchList = () => {
         }
     };
 
-    const MovieListItem = ({ movie, index }) => (
-        <ListItem key={index}>
-            <ListItemText primary={movie.name} style={{ color: 'gold' }} />
-            <Button 
-                variant="contained"
-                onClick={() => handleDeleteMovie(movie.id)}
-                style={{ marginLeft: '10px', backgroundColor: 'gold', color: 'black' }}
-            >
-                Delete
-            </Button>
-        </ListItem>
+    const MovieCard = ({ movie }) => (
+        <Card style={{ margin: '10px', width: '400px', backgroundColor: 'gold' }}>
+            <CardContent>
+                <Grid 
+                    container 
+                    direction="column" 
+                    justifyContent="center" 
+                    alignItems="center"
+                    spacing={2}
+                >
+                    <Grid item>
+                        <Typography variant="h6" color="textPrimary">{movie.name}</Typography>
+                    </Grid>
+                    <Grid item>
+                        <Button 
+                            variant="contained"
+                            onClick={() => handleDeleteMovie(movie.id)}
+                            style={{ width: '200px', backgroundColor: 'black', color: 'white' }}
+                        >
+                            Delete
+                        </Button>
+                    </Grid>
+                </Grid>
+            </CardContent>
+        </Card>
     );
 
     return (
-        <Paper style={{ backgroundColor: 'black', color: 'white', marginBottom: '20px', marginTop: '20px' }}>
-            <Grid container direction="column" alignItems="center" spacing={3}>
-                <Grid item xs={12}>
-                    <Typography variant="h4" align="center" style={{ color: 'gold' }}>To Watch List</Typography>
+        <Container maxWidth="lg">
+            <Paper style={{ backgroundColor: 'black', color: 'white', marginBottom: '20px', marginTop: '20px' }}>
+                <Grid container direction="column" alignItems="center" spacing={3}>
+                    <Grid item xs={12}>
+                        <Typography variant="h3" align="center" style={{ color: 'gold' }}>To Watch List</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant="h5" align="center" style={{ color: 'gold' }}>Add a Movie</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Select 
+                            labelId="movie-select-label" 
+                            id="movie-select" 
+                            value={selectedMovie} 
+                            onChange={(e) => setSelectedMovie(e.target.value)}
+                            style={{ width: '450px', backgroundColor: 'gold' }} 
+                        >
+                            {movies.map((movie) => (
+                                <MenuItem key={movie.id} value={movie}> 
+                                  {movie.name}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button 
+                            variant="contained" 
+                            onClick={handleAddMovie} 
+                            style={{ backgroundColor: 'gold', color: 'black' }}
+                        >
+                            Add
+                        </Button>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography align="center" style={{ color: 'red' }}>{errorMessage}</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Grid container direction="column" alignItems="center">
+                            {toWatchList.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
+                        </Grid>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                    <Typography variant="h5" align="center" style={{ color: 'gold' }}>Add a Movie</Typography>
-                </Grid>
-                <Grid item xs={12}>
-                    <Select 
-                        labelId="movie-select-label" 
-                        id="movie-select" 
-                        value={selectedMovie} 
-                        onChange={(e) => setSelectedMovie(e.target.value)}
-                        style={{ width: '350px', backgroundColor: 'gold' }} 
-                    >
-                        {movies.map((movie) => (
-                            <MenuItem key={movie.id} value={movie}> 
-                              {movie.name}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </Grid>
-                <Grid item xs={12}>
-                    <Button 
-                        variant="contained" 
-                        onClick={handleAddMovie} 
-                        style={{ backgroundColor: 'gold', color: 'black' }}
-                    >
-                        Add
-                    </Button>
-                </Grid>
-                <Grid item xs={12}>
-                    <Typography align="center" style={{ color: 'red' }}>{errorMessage}</Typography>
-                </Grid>
-                <Grid item xs={12}>
-                    <List>
-                        {toWatchList.map((movie, index) => <MovieListItem key={index} movie={movie} />)}
-                    </List>
-                </Grid>
-            </Grid>
-        </Paper>
+            </Paper>
+        </Container>
     );
 };
 
