@@ -91,7 +91,7 @@ app.post('/api/searchMovies', (req, res) => {
     connection.query(query, params, (error, results) => {
         if (error) {
             console.error(error.message);
-            res.status(500).json({ error: error.toString() }); // send error in JSON format
+            res.status(500).json({ error: error.toString() }); 
             return;
         }
         res.json(results);
