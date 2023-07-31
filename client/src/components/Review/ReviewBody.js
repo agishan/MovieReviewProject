@@ -8,12 +8,18 @@ const ReviewBody = ({ onChange, error }) => {
     <div>
       <TextField
         label="Enter The Contents Of Your Review!"
-        variant="outlined"
+        variant="filled"
         notched={false}
         margin="normal"
+        
         multiline
         onChange={onChange}
-        inputProps={{ maxLength: 200 }}
+        InputLabelProps={{
+          style: { color: 'gold' },
+      }}
+      InputProps={{
+          style: { color: 'white', borderColor: 'white', borderWidth: 1, borderStyle: 'solid' }, maxLength: 200
+      }} 
         sx={{ width: '75%' }}
       />
       <Typography color="error">{error}</Typography>

@@ -6,7 +6,7 @@ import Searching from "./Searching";
 const Search = () => {
   return (
     <div style={{ backgroundColor: 'black', minHeight: '100vh' }}>
-      <AppBar position="static" style={{ backgroundColor: 'black' }}>
+      <AppBar position="static" style={{ backgroundColor: 'black', borderBottom: '2px solid gold' }}>
         <Toolbar>
           <Typography variant="h6" style={{ flexGrow: 1, color: 'gold' }}>
             🎬 My Movie Website 🎥
@@ -17,7 +17,7 @@ const Search = () => {
           <Button color="inherit" style={{ color: 'white' }}>Search</Button>
         </Toolbar>
       </AppBar>
-        <Searching />
+      <Searching />
     </div>
   );
 };

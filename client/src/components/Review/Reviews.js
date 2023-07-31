@@ -165,7 +165,7 @@ const Reviews = () => {
     <Grid container direction="column" alignItems="left" spacing={2}>
       
       <Grid item>
-        <Typography variant="h3" align="center">Review A Movie</Typography>
+      <Typography variant="h3" align="center" gutterBottom style={{ color: 'gold', marginTop: "20px" }}>Review A Movie</Typography>
       </Grid>
 
       <Grid item align="center">

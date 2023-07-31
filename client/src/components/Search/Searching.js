@@ -30,7 +30,7 @@ const Search = () => {
     };
 
     return (
-        <Container maxWidth="md" style={{ backgroundColor: 'black', color: 'white', minHeight: '100vh' }}>
+        <Container maxWidth="md" style={{ color: 'white', minHeight: '100vh' }}>
             <Grid container direction="column" spacing={3}>
                 <Grid item xs={12}>
                     <Typography variant="h2" align="center" gutterBottom style={{ color: 'gold' }}>
@@ -48,7 +48,7 @@ const Search = () => {
                             style: { color: 'gold' },
                         }}
                         InputProps={{
-                            style: { color: 'white', borderColor: 'white', borderWidth: 1, borderStyle: 'solid' },
+                            style: { color: 'white', borderWidth: 1, borderStyle: 'solid' },
                         }} 
                         onChange={(e) => setMovieName(e.target.value)} 
                     />
@@ -61,7 +61,7 @@ const Search = () => {
                             style: { color: 'gold' },
                         }}
                         InputProps={{
-                            style: { color: 'white', borderColor: 'white', borderWidth: 1, borderStyle: 'solid' },
+                            style: { color: 'white', borderWidth: 1, borderStyle: 'solid' },
                         }} 
                         onChange={(e) => setDirectorName(e.target.value)} 
                     />

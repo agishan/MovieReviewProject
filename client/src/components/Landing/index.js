@@ -10,20 +10,19 @@ import Moonlight from './Assets/Moonlight.jpeg';
 const Landing = () => {
     return (
         <Box style={{ backgroundColor: 'black', height: '100vh' }}>
-            <AppBar position="static" color="inherit" style={{ backgroundColor: 'black' }}>
-                <Toolbar>
-                    <Typography variant="h5" style={{ flexGrow: 1, color: 'gold', fontSize: '24px' }}>
-                        🎬 My Movie Website 🎥
-                    </Typography>
-                    <Button color="inherit" style={{ color: 'gold', fontSize: '18px' }}>Home</Button>
-                    <Button color="inherit" component={Link} to="/MyPage" style={{ color: 'gold', fontSize: '18px' }}>MyPage</Button>
-                    <Button color="inherit" component={Link} to="/Review" style={{ color: 'gold', fontSize: '18px' }}>Review</Button>
-                    <Button color="inherit" component={Link} to="/Search" style={{ color: 'gold', fontSize: '18px' }}>Search</Button>
-                </Toolbar>
-            </AppBar>
-
-            <Container style={{ marginTop: '30px' }}>
-                <Typography variant="h3" align="center" gutterBottom style={{ color: 'gold' }}>
+        <AppBar position="static" color="inherit" style={{ backgroundColor: 'black', borderBottom: '2px solid gold' }}>
+          <Toolbar>
+            <Typography variant="h5" style={{ flexGrow: 1, color: 'gold', fontSize: '24px' }}>
+              🎬 My Movie Website 🎥
+            </Typography>
+            <Button color="inherit" style={{ color: 'gold', fontSize: '18px' }}>Home</Button>
+            <Button color="inherit" component={Link} to="/MyPage" style={{ color: 'gold', fontSize: '18px' }}>MyPage</Button>
+            <Button color="inherit" component={Link} to="/Review" style={{ color: 'gold', fontSize: '18px' }}>Review</Button>
+            <Button color="inherit" component={Link} to="/Search" style={{ color: 'gold', fontSize: '18px' }}>Search</Button>
+          </Toolbar>
+        </AppBar>
+        <Container style={{ marginTop: '30px' }}>
+        <Typography variant="h3" align="center" gutterBottom style={{ color: 'gold' }}>
                     Welcome to My Movie Website!
                 </Typography>
                 <Typography variant="h5" align="center" gutterBottom style={{ color: 'white' }}>
@@ -41,8 +40,9 @@ const Landing = () => {
                 <Typography variant="h5" align="center" style={{ marginTop: '20px', fontWeight: 'bold', color: 'gold' }}>
                     Enjoy your movie journey with us! 🍿🎉
                 </Typography>
-            </Container>
-        </Box>
+        </Container>
+      </Box>
+    
     );
 };
 

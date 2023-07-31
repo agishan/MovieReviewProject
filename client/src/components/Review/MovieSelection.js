@@ -18,16 +18,40 @@ const StyledSelect = styled(Select)({
 const MovieSelection = ({ movies, selectedMovie, handleMovieChange, movieError }) => {
   return (
     <div>
-      <StyledFormControl variant="standard" sx={{ width: '50%' }}>
-        <StyledInputLabel>Select A Movie To Review</StyledInputLabel>
-        <StyledSelect value={selectedMovie} onChange={handleMovieChange}>
-          {movies.map((movie) => (
-            <MenuItem key={movie.id} value={movie}>
-              {movie.name}
-            </MenuItem>
-          ))}
-        </StyledSelect>
-      </StyledFormControl>
+       <FormControl 
+      variant="filled" 
+      sx={{ 
+        width: '50%', 
+        '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+          borderColor: 'white',
+        },
+        '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+          borderColor: 'white',
+        },
+        '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+          borderColor: 'white',
+        },
+      }}
+    >
+      <InputLabel sx={{ color: 'gold', '&.Mui-focused': { color: 'gold' } }}>
+        Select A Movie To Review
+      </InputLabel>
+      <Select 
+        value={selectedMovie} 
+        onChange={handleMovieChange}
+        sx={{ 
+          '&:before': { borderColor: 'white' },
+          '&:after': { borderColor: 'white' },
+          color: 'white'
+        }}
+      >
+        {movies.map((movie) => (
+          <MenuItem key={movie.id} value={movie}>
+            {movie.name}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
       <Typography color="error">{movieError}</Typography>
     </div>
   );
