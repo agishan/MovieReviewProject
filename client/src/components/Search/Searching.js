@@ -6,6 +6,8 @@ const Search = () => {
     const [directorName, setDirectorName] = useState('');
     const [actorName, setActorName] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('')
+
 
     const handleSearch = () => {
         let searchParams = {
@@ -13,6 +15,10 @@ const Search = () => {
             directorName,
             actorName,
         };
+        if (!movieName && !directorName && !actorName) {
+            setErrorMessage('Please enter at least one search criteria');
+            return;
+        }
 
         fetch('/api/searchMovies', {
             method: 'POST',
@@ -44,6 +50,7 @@ const Search = () => {
                     <TextField 
                         label="Movie Name"
                         fullWidth 
+                        variant="filled"
                         InputLabelProps={{
                             style: { color: 'gold' },
                         }}
@@ -56,7 +63,8 @@ const Search = () => {
                 <Grid item xs={12}>
                     <TextField 
                         label="Director Name"
-                        fullWidth 
+                        fullWidth
+                        variant="filled"
                         InputLabelProps={{
                             style: { color: 'gold' },
                         }}
@@ -69,7 +77,8 @@ const Search = () => {
                 <Grid item xs={12}>
                     <TextField 
                         label="Actor Name"
-                        fullWidth 
+                        fullWidth
+                        variant="filled"
                         InputLabelProps={{
                             style: { color: 'gold' },
                         }}
@@ -88,6 +97,9 @@ const Search = () => {
                     >
                         Search
                     </Button>
+                    <Typography variant="body1" style={{ color: 'red' }}>
+                        {errorMessage}
+                    </Typography>
                 </Grid>
                 {searchResults.length > 0 && searchResults.map((result, index) => (
                     <Grid item xs={12} key={index}>
