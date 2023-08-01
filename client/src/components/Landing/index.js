@@ -15,7 +15,7 @@ const Landing = () => {
             <Typography variant="h5" style={{ flexGrow: 1, color: 'gold', fontSize: '24px' }}>
               🎬 My Movie Website 🎥
             </Typography>
-            <Button color="inherit" style={{ color: 'gold', fontSize: '18px' }}>Home</Button>
+            <Button color="inherit" style={{ color: 'white', fontSize: '18px' }}>Home</Button>
             <Button color="inherit" component={Link} to="/MyPage" style={{ color: 'gold', fontSize: '18px' }}>MyPage</Button>
             <Button color="inherit" component={Link} to="/Review" style={{ color: 'gold', fontSize: '18px' }}>Review</Button>
             <Button color="inherit" component={Link} to="/Search" style={{ color: 'gold', fontSize: '18px' }}>Search</Button>
